@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\models\SignupForm;
+use app\models\User;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -62,6 +64,31 @@ class SiteController extends Controller
     public function actionIndex()
     {
         return $this->render('index');
+    }
+
+    /**
+     * Registration
+     */
+
+    public function actionSignup(){
+        if (!Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+        $model = new SignupForm();
+        if($model->load(\Yii::$app->request->post()) && $model->validate()){
+            $user = new User();
+            $user->username = $model->username;
+            $user->email = $model->email;
+            $user->setPassword($model->password);
+            $user->generateAuthKey();
+            $user->generateEmailVerificationToken();
+
+            if($user->save()){
+                return $this->goHome();
+            }
+        }
+
+        return $this->render('signup', compact('model'));
     }
 
     /**
