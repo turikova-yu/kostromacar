@@ -32,7 +32,8 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 <header id="header">
     <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->name,
+        'brandLabel' => 'Автосервис',
+            //Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
         'options' => ['class' => 'navbar-expand-md navbar-dark bg-dark fixed-top']
     ]);
@@ -51,7 +52,13 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                         ['class' => 'nav-link btn btn-link logout']
                     )
                     . Html::endForm()
-                    . '</li>'
+                    . '</li>',
+            ['label' => 'Car Brand', 'url' => ['/car-brand/index']],
+            ['label' => 'Car Model', 'url' => ['/car-model/index']],
+            ['label' => 'Car Generation', 'url' => ['/car-generation/index']],
+            ['label' => 'Service Type', 'url' => ['/service-type/index']],
+            ['label' => 'Car', 'url' => ['/car/index']],
+            ['label' => 'Service', 'url' => ['/service/index']]
         ]
     ]);
     NavBar::end();
